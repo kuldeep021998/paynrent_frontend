@@ -34,16 +34,15 @@ export default function DisplayAllSubCategory(props) {
         var result = await getData('subcategory/display_subcategory')
         setSubCategory(result.data)
     }
+    
+    useEffect(function () {
+        fetchAllSubCategory()
+    }, [])
 
     const fetchAllCategory = async () => {
         var result = await getData('category/display_category')
         setCategoryList(result.data)
     }
-
-    useEffect(function () {
-        fetchAllSubCategory()
-    }, [])
-
 
 
     function displaySubCategory() {

@@ -44,8 +44,7 @@ export default function Offer(props) {
                         boxShadow: "0 2px 2px 0 rgb(0 0 0 / 7%)",
                         width: 425,
                         height: 120,
-                        margin: 20
-                    }}>
+                        margin: 20}}>
                         <span style={{
                             display: "inline-block",
                             position: "absolute",
