@@ -1,4 +1,4 @@
-import { Box, Paper, TextField } from "@mui/material";
+import { Grid, Paper, TextField } from "@mui/material";
 import { useState, useEffect } from "react";
 import { LocationOn } from "@mui/icons-material";
 import { ServerURL, getData, postData } from "../../Services/FetchBackendData";
@@ -18,35 +18,45 @@ import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useNavigate } from "react-router-dom";
 import DateDiff from "date-diff";
+import { useSelector } from "react-redux";
 
-export default function SearchComponent(props) {
 
-    const [selectedCity, setSelectedCity] = useState('Gwalior')
+export default function SecondHeader(props) {
+
+    var bookingDetails = useSelector(state=>state.booking);
     const [open, setOpen] = useState(false);
     const [cities, setCities] = useState([]);
-    const [startTime, setStartTime] = useState('Start Time');
-    const [endTime, setEndTime] = useState('End Time');
-    const [daysTime, setDaysTime] = useState('');
-    var navigate = useNavigate();
-    var dispatch = useDispatch();
-
+    const [selectedCity, setSelectedCity] = useState(bookingDetails.city);
+    const [startTime, setStartTime] = useState(bookingDetails.startTime);
+    const [endTime, setEndTime] = useState(bookingDetails.endTime);
 
     const fetchCities = async () => {
         var response = await getData('user/display_cities')
         setCities(response.data)
-    }
+    };
 
     useEffect(function () {
         fetchCities()
-    }, [])
+    }, []);
+
+    const handleSetStartTimeValue = (newValue) => {
+        setStartTime(newValue);
+    }
+
+    const handleSetEndTimeValue = (newValue) => {
+        setEndTime(newValue)
+    }
 
     const showTopCityList = () => {
         return cities.map((item) => {
             return (
                 <>
-                    {item.status == 'Top City' ? <ListItem Button >
-                        <ListItemText primary={<span style={{ fontSize: 18, fontWeight: 'bold' }}>{item.cityname}</span>} onClick={() => handleCitySelect(item.cityname)} />
-                    </ListItem> : <></>}</>
+                    {
+                        item.status == 'Top City' ? <ListItem Button >
+                            <ListItemText primary={<span style={{ fontSize: 18, fontWeight: 'bold' }}>{item.cityname}</span>} onClick={() => handleCitySelect(item.cityname)} />
+                        </ListItem> : <></>
+                    }
+                </>
             )
         });
     };
@@ -57,9 +67,7 @@ export default function SearchComponent(props) {
                 {item.status == 'Other City' ? <ListItem Button >
                     <ListItemText style={{ fontSize: 18, fontWeight: 'bold' }} primary={item.cityname} onClick={() => handleCitySelect(item.cityname)} />
                 </ListItem> : <></>}</>)
-
         })
-
     }
 
     const handleCityDialog = () => {
@@ -73,6 +81,10 @@ export default function SearchComponent(props) {
     const handleCitySelect = (cityselected) => {
         setSelectedCity(cityselected);
         setOpen(false)
+    }
+
+    const handleClick = () => {
+
     }
 
     const cityDialog = () => {
@@ -117,63 +129,16 @@ export default function SearchComponent(props) {
         );
     };
 
-    const handleSetStartTimeValue = (newValue) => {
-        setStartTime(newValue);
-    };
-    const handleSetEndTimeValue = (newValue) => {
-        setEndTime(newValue);
-        dateDiff(newValue);
-    };
-
-    const dateDiff = () => {
-        var startDay = new Date(startTime);
-        var endDay = new Date(endTime);
-        var diff = new DateDiff(endDay, startDay);
-        setDaysTime("Duration : " + parseInt(diff.days()) + " Days " + Math.ceil(diff.hours() % 24) + " Hrs");
-    }
-
-
-
-    const handleClick = async () => {
-        dispatch({ type: 'ADD_BOOKING', payload: { city: selectedCity, startTime: startTime, endTime: endTime } });
-        navigate('/vehicle_details')
-    }
-
-
     return (
-        <div style={{ position: 'relative' }}>
-            <img src="/assets/Slider2.png" style={{ width: '100%', height: 570 }} />
-            <div style={{ position: "absolute", left: '5%', top: '6%' }}>
-                <Paper elevation={3} style={{ flexDirection: 'column', display: 'flex', padding: 45, width: 450, alignItems: 'center', height: 390, borderRadius: 15 }}>
-                    <div style={{ position: 'relative', padding: 10, background: '#40739e', width: 430, height: 60, borderRadius: 15 }}>
-                        <div style={{ position: 'absolute', left: '2%', top: '12%' }}>
-                            <div style={{ position: 'relative' }}>
-                                <img src='/assets/message1.png' style={{ width: 216, height: 80 }} />
-                                <div style={{ position: 'absolute', left: '33%', top: 1, fontFamily: 'cursive', fontWeight: 'bolder', fontSize: 24 }}>Rentals</div>
-                                <div style={{ position: 'absolute', left: '27%', top: '40%', fontFamily: 'cursive', fontWeight: '350', fontSize: 12, flexDirection: 'column' }}>For Hours and Days</div>
-                            </div>
-                        </div>
-
-                        <div style={{ position: 'absolute', left: '50%', top: '12%' }}>
-                            <div style={{ position: 'relative' }}>
-                                <img src='/assets/message1.png' style={{ width: 215, height: 80, flexDirection: 'column' }} />
-                                <div style={{ position: 'absolute', left: '18%', top: 1, fontFamily: 'cursive', fontWeight: 'bolder', fontSize: 24 }}>Subscription</div>
-                                <div style={{ position: 'absolute', left: '23%', top: '40%', fontFamily: 'cursive', fontWeight: '350', fontSize: 12, flexDirection: 'column' }}>For Months and Years</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <img src="/assets/rentals2.png" style={{ width: 120, marginTop: '20%' }} />
-                    </div>
-                    <div style={{ fontSize: 20, color: '#7f8c8d', marginTop: 8, fontFamily: 'cursive' }}>
-                        Self Drive Car Rental In INDIA
-                    </div>
-                    <div onClick={handleCityDialog} style={{ cursor: 'pointer', alignItems: 'center', marginTop: '6%', display: 'flex', padding: 15, width: 390, borderTopLeftRadius: 10, borderTopRightRadius: 10, height: 25, border: '1px solid #bdc3c7' }}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Paper elevation={3} style={{ width: '80%', borderRadius: 20, border: '1px solid #bdc3c7' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                    <div onClick={handleCityDialog} style={{ cursor: 'pointer', alignItems: 'center', display: 'flex', padding: 15, width: 350, borderTopLeftRadius: 20, borderBottomLeftRadius: 20, height: 25 }}>
                         <LocationOn />
                         <span style={{ fontSize: 20, fontWeight: 600, paddingLeft: 10 }}>{selectedCity}</span>
                     </div>
                     <div style={{ display: 'flex' }}>
-                        <div style={{ cursor: 'pointer', alignItems: 'center', display: 'flex', padding: 15, width: 179, borderBottomLeftRadius: 10, height: 25, border: '1px solid #bdc3c7' }}>
+                        <div style={{ cursor: 'pointer', alignItems: 'center', display: 'flex', padding: 15, width: 250, height: 25, borderLeft: 0 }}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <MobileDateTimePicker
                                     label={<span style={{ fontSize: 18, fontWeight: 600, color: '#7f8c8d' }}>Start Time</span>}
@@ -186,7 +151,7 @@ export default function SearchComponent(props) {
                                 />
                             </LocalizationProvider>
                         </div>
-                        <div style={{ cursor: 'pointer', alignItems: 'center', display: 'flex', padding: 15, width: 179, borderEndEndRadius: 10, height: 25, border: '1px solid #bdc3c7' }}>
+                        <div style={{ cursor: 'pointer', alignItems: 'center', display: 'flex', padding: 15, width: 250, height: 25, border: '1px solid #bdc3c7', borderRight: '0px', borderTop: '0px', borderBottom: '0px' }}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <MobileDateTimePicker
                                     label={<span style={{ fontSize: 18, fontWeight: 600, color: '#7f8c8d' }}>End Time</span>}
@@ -200,19 +165,26 @@ export default function SearchComponent(props) {
                             </LocalizationProvider>
                         </div>
                     </div>
-                    <div style={{ color: '#7f8c8d', fontWeight: 600, fontSize: 11, marginTop: 10 }}>
-                        {daysTime}
+                    <div>
+                        <Button
+                            //onClick={handleClick}
+                            variant="contained"
+                            style={{
+                                background: "linear-gradient(270deg,#1caba2,20%,#1c7fab)",
+                                height: 57,
+                                borderRadius: 20,
+                                width: 200
+
+                            }}
+                        >
+                            <span style={{ fontWeight: 600 }}>Modify Search</span>
+                        </Button>
                     </div>
-                    <div style={{ position: 'absolute', left: '11%', top: '78%' }}>
-                        <div onClick={handleClick} style={{ cursor: 'pointer', borderRadius: 50, border: '1px solid #bdc3c7', background: '#f39c12', margin: '5%', height: 60, width: 380, flexDirection: 'column', alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
-                            <span style={{ color: 'white', fontSize: 20, fontWeight: 600 }}>Search</span>
-                        </div>
-                    </div>
-                </Paper>
-            </div>
+                </div>
+            </Paper>
             <div>
                 {cityDialog()}
             </div>
         </div>
-    );
-};
+    )
+}

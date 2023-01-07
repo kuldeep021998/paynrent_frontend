@@ -17,8 +17,8 @@ export default function DisplayAllCompany(props) {
 
     const classes = useStyles();
     const [company, setCompany] = useState([]);
-    const [category, setCategory] = useState([]);
-    const [subCategory, setSubCategory] = useState([]);
+    const [categoryList, setCategoryList] = useState([]);
+    const [subCategoryList, setSubCategoryList] = useState([]);
     var [companyId, setCompanyId] = useState('');
     var [categoryId, setCategoryId] = useState('');
     var [subCategoryId, setSubCategoryId] = useState('');
@@ -38,12 +38,12 @@ export default function DisplayAllCompany(props) {
 
     const fetchAllCategory = async () => {
         var result = await getData('category/display_category')
-        setCategory(result.data)
+        setCategoryList(result.data)
     }
 
     const fetchAllSubCategory = async () => {
         var result = await getData('subcategory/display_subcategory')
-        setSubCategory(result.data);
+        setSubCategoryList(result.data);
     }
 
     const handleSetDataForDialog = (rowData) => {
@@ -86,7 +86,7 @@ export default function DisplayAllCompany(props) {
     }
 
     const fillCategoryDropDown = () => {
-        return category.map((item) => {
+        return categoryList.map((item) => {
             return (
                 <MenuItem value={item.categoryid}>{item.categoryname}</MenuItem>
             )
@@ -94,7 +94,7 @@ export default function DisplayAllCompany(props) {
     }
 
     const fillSubCategoryDropDown = () => {
-        return subCategory.map((item) => {
+        return subCategoryList.map((item) => {
             return (
                 <MenuItem value={item.subcategoryid}>{item.subcategoryname}</MenuItem>
             )
@@ -104,7 +104,7 @@ export default function DisplayAllCompany(props) {
     const fetchSubCategoryByCategory = async (categoryId) => {
         var body = { categoryid: categoryId };
         var response = await postData('subcategory/fetch_subcategory_by_category', body);
-        setSubCategory(response.data)
+        setSubCategoryList(response.data)
     }
 
     const handleShowCompanyList = () => {

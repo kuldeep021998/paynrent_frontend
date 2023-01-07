@@ -4,6 +4,7 @@ import { ServerURL, getData } from "../Services/FetchBackendData";
 import SearchComponent from "./MyComponents/SearchComponent";
 import FeaturedComponent from "./MyComponents/FeaturedComponent";
 import Offer from "./MyComponents/Offer";
+import Cities from "./MyComponents/Cities";
 
 export default function Home(props) {
     const [features, setFeatures] = useState([]);
@@ -34,6 +35,9 @@ export default function Home(props) {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', marginTop: 30, paddingLeft: 40, paddingRight:65}}>
                     <FeaturedComponent images={features} />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', marginTop: 30, paddingLeft: 40, paddingRight:65 }}>
+                    <Cities />
                 </div>
             </div>
    

@@ -9,6 +9,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useNavigate } from 'react-router-dom';
 
+
 export default function Sidebar(props){
 
     const navigate = useNavigate();
@@ -45,6 +46,18 @@ export default function Sidebar(props){
                         <ShoppingCartIcon />
                     </ListItemIcon>
                     <ListItemText primary="Offers" />
+                </ListItemButton>
+                <ListItemButton onClick={()=>navigate('/dashboard/models')}>
+                    <ListItemIcon>
+                        <ShoppingCartIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="models" />
+                </ListItemButton>
+                <ListItemButton onClick={()=>navigate('/dashboard/vehicles')}>
+                    <ListItemIcon>
+                        <ShoppingCartIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="vehicles" />
                 </ListItemButton>
             </React.Fragment>
 
