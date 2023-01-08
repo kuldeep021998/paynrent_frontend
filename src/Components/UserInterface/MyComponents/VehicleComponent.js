@@ -1,11 +1,21 @@
 import { useState, useEffect } from "react";
 import { ServerURL, getData, postData } from "../../Services/FetchBackendData";
 import { Button } from "@material-ui/core";
+import UserSinghUpDrawer from "./UserSignUpDrawer";
 
 export default function VehicleComponent(props) {
 
     var item = props.item;
 
+    var [status, setStatus] = useState(false);
+
+    const handleClick=()=>{
+        setStatus(true)
+    }
+
+    const handleStatus=()=>{
+        setStatus(false)
+    }
     return (
         <div style={{ display: 'flex', flexDirection: 'column', background: '#ffffff', width: 280, height: 340, padding: 10, borderRadius: 10, margin: 10, paddingBottom: 25 }}>
             <div style={{ display: 'flex', flexDirection: 'column', fontWeight: 600, fontSize: 20, marginTop: 10, justifyContent: 'center' }}>
@@ -27,7 +37,7 @@ export default function VehicleComponent(props) {
                 </div>
                 <div>
                     <Button
-                        //onClick={handleClick}
+                        onClick={handleClick}
                         variant="contained"
                         style={{
                             background: "linear-gradient(270deg,#1caba2,20%,#1c7fab)",
@@ -40,6 +50,9 @@ export default function VehicleComponent(props) {
             </div>
             <div style={{ marginLeft: 10, marginTop: 8, fontFamily: 'cursive', fontSize: 12 }}>
                 Prices exclude fuel cost
+            </div>
+            <div style={{width:'5%'}}>
+                <UserSinghUpDrawer status={status} handleStatus={handleStatus} />
             </div>
         </div>
     )

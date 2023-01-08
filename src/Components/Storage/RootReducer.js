@@ -1,5 +1,6 @@
 const initialState={
-  booking:{}
+  booking:{},
+  userDetails:{}
  };
 
  export default function RootReducer(state=initialState,actions)
@@ -10,9 +11,15 @@ const initialState={
         
             state.booking=actions.payload
       
-            return ({booking:state.booking})
+            return ({booking:state.booking, userDetails:state.userDetails})
         
-  
+        case 'ADD_USER':
+
+            state.userDetails[actions.payload[0]] = actions.payload[1]
+
+            return ({booking:state.booking, userDetails:state.userDetails})
+        
+
         default:
             return state
 

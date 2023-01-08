@@ -1,13 +1,10 @@
-import { Box, Paper, TextField } from "@mui/material";
+import { Paper, TextField } from "@mui/material";
 import { useState, useEffect } from "react";
 import { LocationOn } from "@mui/icons-material";
 import { ServerURL, getData, postData } from "../../Services/FetchBackendData";
-import { blue, Typography, Button, Avatar, List, ListItem, ListItemAvatar, ListItemText, ListItemButton } from "@mui/material";
-import { PersonIcon, AddIcon } from "@mui/icons-material";
+import { List, ListItem, ListItemText } from "@mui/material";
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Divider from "@mui/material/Divider";
 import CloseIcon from '@mui/icons-material/Close';
