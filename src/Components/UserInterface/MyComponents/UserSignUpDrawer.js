@@ -31,7 +31,7 @@ export default function UserSinghUpDrawer(props) {
         setState({ ...state, ['right']: props.status })
     }, [props])
 
-    const handleClose=()=>{
+    const handleClose = () => {
         setState({ ...state, ['right']: false })
     }
 
@@ -88,8 +88,7 @@ export default function UserSinghUpDrawer(props) {
             {btnStatus ?
                 <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <OtpInterface handleClose={handleClose} generatedOtp={generatedOtp} getOtp={getOtp} onChange={handleOtpChange} GenerateOtp={GenerateOtp} mobile={mobile} />
-                </Grid> : <></>}
-
+                </Grid> : (<></>)}
         </Grid>
     )
 

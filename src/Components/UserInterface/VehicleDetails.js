@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import VehicleComponent from "./MyComponents/VehicleComponent";
-import { ServerURL, getData, postData } from "../Services/FetchBackendData";
+import { getData } from "../Services/FetchBackendData";
 import Header from "./MyComponents/Header";
 import Filter from "./MyComponents/Filter";
 import { Grid } from "@material-ui/core";
@@ -10,7 +10,7 @@ export default function VehicleDetails(props) {
 
     const [vehicleList, setVehicleList] = useState([]);
     const [tempVehicleList, setTempVehicleList] = useState([]);
-
+    
     const fetchvehicle = async () => {
         var result = await getData('vehicle/display_vehicles')
         setVehicleList(result.data)
@@ -73,9 +73,9 @@ export default function VehicleDetails(props) {
             final_query = final_query.substring(0, final_query.lastIndexOf('&&') - 1)
         else
             final_query = final_query.substring(0, final_query.lastIndexOf('||') - 1)
-        
-            alert(final_query)
-            
+
+        alert(final_query)
+
         var temp = tempVehicleList.filter((item) => {
             return eval(final_query)
         })

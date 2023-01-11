@@ -22,14 +22,13 @@ export default function OtpInterface(props) {
     var navigate = useNavigate();
     var dispatch = useDispatch();
 
-    const fetchUserDetails=async()=>{
-        var result = await postData('user/check_user_mobile', {mobile: props.mobile})
+    const fetchUserDetails = async () => {
+        var result = await postData('user/check_user_mobile', { mobile: props.mobile })
         setUserDetails(result)
     }
 
     useEffect(function () {
         myTimer()
-        fetchUserDetails()
     }, [])
 
     const myTimer = () => {
@@ -78,17 +77,16 @@ export default function OtpInterface(props) {
         }
     }
 
-    const verifyOtp = () => {
+    const verifyOtp = async () => {
         alert(props.getOtp + " " + inputOtp)
-        if (props.getOtp == inputOtp) {
-            if(userDetails.status)
-            {
+        if (props.getOtp == props.generatedOtp) {
+            var result = await postData('user/check_user_mobile', { mobile: props.mobile })
+            if (result.status) {
                 props.handleClose()
-                dispatch({type: 'ADD_USER', payload: [props.mobile, userDetails.data]})
-                alert('move to next Page')
+                dispatch({ type: 'ADD_USER', payload: [props.mobile, userDetails.data] })
+                navigate('/vehicle_details_component');
             }
-            else
-            {
+            else {
                 setStatus(true)
             };
 
