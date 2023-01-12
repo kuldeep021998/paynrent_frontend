@@ -8,8 +8,25 @@ import { useStyles } from "./VehicleDetailComponentCss";
 export default function VehicleDetailComponent(props) {
 
     const classes = useStyles();
+    var vehicle = useSelector((state) => state.vehicle);
+    var vehicleDetails = Object.values(vehicle)[0];
 
-    return (
+    var bookingDetails = useSelector((state) => state.booking);
+    //console.log("ss", new Date(Object.values(bookingDetails.starttime)[2]))
+    console.log("Start Time : ", bookingDetails.starttime);
+    var st = Object.values(bookingDetails.starttime)[2];
+    var std = st.toDateString();
+    var stt = st.getHours() + ":" + st.getMinutes() + ":" + st.getSeconds();
+
+    var et = Object.values(bookingDetails.endtime)[2];
+    var etd = et.toDateString();
+    var ett = et.getHours() + ":" + et.getMinutes() + ":" + et.getSeconds()
+
+    var pickup = 400;
+    var sdeposit = 2000;
+    var total = pickup + sdeposit + vehicleDetails.rent
+
+    return ( 
         <div style={{ background: "rgb(241, 241, 241)", height: "100%", }}>
             <Header />
             <div className={classes.container}>
@@ -20,11 +37,11 @@ export default function VehicleDetailComponent(props) {
                                 <div className={classes.cardFirst}>
                                     <div className={classes.cardFirstHeading}>
                                         <b style={{ fontSize: 18, }}>
-                                            Hyundai Creta
+                                            {vehicleDetails.companyname} {vehicleDetails.modelname}
                                         </b>
                                     </div>
                                     <br />
-                                    <img className={classes.cardFirstImage} src="/assets/audi.png" alt="Audi" />
+                                    <img className={classes.cardFirstImage} src={`${ServerURL}/images/${vehicleDetails.icon}`} alt="Audi" />
                                     <br />
                                     <div className={classes.carDetails}>
                                         <div className={classes.subCarDetails}>
@@ -38,14 +55,14 @@ export default function VehicleDetailComponent(props) {
                                             <img src="/assets/iconDiesel.svg" alt="Fuel" style={{ marginRight: 6, verticalAlign: "middle", width: 14, }} />
                                             <br />
                                             <span className={classes.carDetailsText}>
-                                                Diesel
+                                                {vehicleDetails.fueltype}
                                             </span>
                                         </div>
                                         <div className={classes.subCarDetails}>
                                             <img src="/assets/iconSeat.svg" alt="Automatic" style={{ marginRight: 6, verticalAlign: "middle", width: 12, }} />
                                             <br />
                                             <span className={classes.carDetailsText}>
-                                                5 Seats
+                                                {vehicleDetails.capacity}
                                             </span>
                                         </div>
                                     </div>
@@ -56,22 +73,22 @@ export default function VehicleDetailComponent(props) {
                                         <br />
                                         <div style={{ display: "flex" }}>
                                             <span style={{ textAlign: "left", marginLeft: 24, width: "40%" }}>
-                                                Fri, 30 Dec 23:30
+                                                {std + " " + stt}
                                             </span>
                                             <Divider style={{ width: "20%" }}><b> TO </b></Divider>
                                             <span style={{ textAlign: "right", marginRight: 24, width: "40%" }}>
-                                                Fri, 30 Dec 23:30
+                                                {etd + " " + ett}
                                             </span>
                                         </div>
                                         <br />
                                         <div style={{ marginTop: 12, }}>
                                             <span>
-                                                Duration : 2 Days, 10 Hours
+                                                {bookingDetails.duration}
                                             </span>
                                         </div>
                                         <br /><br />
                                         <div style={{ display: "inline-flex", }}>
-                                            <span style={{ marginRight: 20, }}><b>City : Hyderabad</b></span>
+                                            <span style={{ marginRight: 20, }}><b>City : {bookingDetails.city}</b></span>
                                         </div>
                                         <br />
                                         <div style={{ display: "inline-flex", paddingTop: 10 }}>
@@ -157,7 +174,7 @@ export default function VehicleDetailComponent(props) {
                                                 Base Fare
                                             </td>
                                             <td style={{ paddingBottom: 6 }}>
-                                                &#x20B9; 21454
+                                                &#x20B9; {vehicleDetails.rent}
                                             </td>
                                         </tr>
                                         <tr>
@@ -165,7 +182,7 @@ export default function VehicleDetailComponent(props) {
                                                 Doorstep Delivery & Pickup
                                             </td>
                                             <td style={{ paddingBottom: 6 }}>
-                                                &#x20B9; 400
+                                                &#x20B9; {pickup}
                                             </td>
                                         </tr>
                                         <tr>
@@ -181,7 +198,7 @@ export default function VehicleDetailComponent(props) {
                                                 Refundable Security Deposit
                                             </td>
                                             <td style={{ paddingBottom: 12 }}>
-                                                &#x20B9; 2000
+                                                &#x20B9; {sdeposit}
                                             </td>
                                         </tr>
                                         <tr>
@@ -209,7 +226,7 @@ export default function VehicleDetailComponent(props) {
                                             </td>
                                             <td style={{ paddingLeft: 300, }}>
                                                 <span style={{ fontSize: 20, fontWeight: 500, }}>
-                                                    &#x20B9; 23854
+                                                    &#x20B9; {total}
                                                 </span>
                                             </td>
                                         </tr>

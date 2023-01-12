@@ -9,7 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Divider from "@mui/material/Divider";
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -24,8 +24,11 @@ export default function SearchComponent(props) {
     const [startTime, setStartTime] = useState('Start Time');
     const [endTime, setEndTime] = useState('End Time');
     const [daysTime, setDaysTime] = useState('');
+    const [days, setDays] = useState('');
+    const [hrs, sethrs] = useState('');
     var navigate = useNavigate();
     var dispatch = useDispatch();
+    var bookingDetails = useSelector((state)=>state.booking)
 
 
     const fetchCities = async () => {
@@ -126,15 +129,23 @@ export default function SearchComponent(props) {
         var startDay = new Date(startTime);
         var endDay = new Date(endTime);
         var diff = new DateDiff(endDay, startDay);
+        setDays(parseInt(diff.days()))
+        sethrs(Math.ceil(diff.hours() % 24))
         setDaysTime("Duration : " + parseInt(diff.days()) + " Days " + Math.ceil(diff.hours() % 24) + " Hrs");
     }
 
 
 
     const handleClick = async () => {
-        dispatch({ type: 'ADD_BOOKING', payload: { city: selectedCity, startTime: startTime, endTime: endTime } });
-        navigate('/vehicle_details')
+        if ((days >= 0 && hrs > 0) || (days > 0 && hrs >= 0)) {
+            dispatch({ type: 'ADD_BOOKING', payload: { city: selectedCity, starttime: startTime, endtime: endTime, duration: daysTime, days: days, hrs: hrs } });
+            navigate('/vehicle_details')
+        }
+        else {
+            alert("Invalid date/time pls choose correct date & time....")
+        }
     }
+
 
 
     return (
