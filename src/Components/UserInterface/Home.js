@@ -5,6 +5,10 @@ import SearchComponent from "./MyComponents/SearchComponent";
 import FeaturedComponent from "./MyComponents/FeaturedComponent";
 import Offer from "./MyComponents/Offer";
 import Cities from "./MyComponents/Cities";
+import OurJourney from "./MyComponents/OurJourney";
+import  Faq  from "./MyComponents/Faq";
+import Ourinvestor from "./MyComponents/OurInvestors";
+import PlayStore from "./MyComponents/PlayStore";
 
 export default function Home(props) {
     const [features, setFeatures] = useState([]);
@@ -35,6 +39,18 @@ export default function Home(props) {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', marginTop: 30, paddingLeft: 40, paddingRight:65}}>
                     <FeaturedComponent images={features} />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', marginTop: 30, paddingLeft: 40, paddingRight:65}}>
+                    <Faq />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', marginTop: 30, paddingLeft: 40, paddingRight:65}}>
+                    <PlayStore />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', marginTop: 30, paddingLeft: 40, paddingRight:65}}>
+                    <OurJourney />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', marginTop: 30, paddingLeft: 40, paddingRight:65}}>
+                    <Ourinvestor />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', marginTop: 30, paddingLeft: 40, paddingRight:65 }}>
                     <Cities />

@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-import { postData, ServerURL } from '../../Services/FetchBackendData';
+import { postData } from '../../Services/FetchBackendData';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -39,8 +39,10 @@ export default function Login(props) {
 
     const handleSubmit = async () => {
         var body = { emailid: emailId, password: password }
-        var response = await postData('admin/check_Admin_login', body)
+        var response = await postData('admin/check_admin_login', body)
         if (response.status) {
+            alert(JSON.stringify(response.token))
+            localStorage.setItem("token", response.token)
             navigate("/dashboard")
         }
         else {

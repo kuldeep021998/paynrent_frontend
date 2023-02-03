@@ -1,4 +1,4 @@
-import { useState, useEffect, createRef } from "react";
+import { createRef } from "react";
 import { ServerURL, getData } from "../../Services/FetchBackendData";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

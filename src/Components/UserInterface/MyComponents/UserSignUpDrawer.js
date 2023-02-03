@@ -4,7 +4,7 @@ import { Button, TextField, Grid } from '@mui/material';
 import { useState, useEffect } from 'react';
 import OtpInterface from './OtpInterface';
 
-export default function UserSinghUpDrawer(props) {
+export default function UserSignUpDrawer(props) {
 
     const [value, setValue] = useState('');
     const [getOtp, setOtp] = useState('');

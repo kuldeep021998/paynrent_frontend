@@ -15,21 +15,21 @@ export default function Sidebar(props){
     const navigate = useNavigate();
 
     return(
-        <div>
+        <div style={{marginTop: 5}}>
             <React.Fragment>
-                <ListItemButton onClick={()=>navigate('/dashboard/display_all_category')}>
+                <ListItemButton onClick={()=>navigate('/dashboard/display_category')}>
                     <ListItemIcon>
                         <ShoppingCartIcon />
                     </ListItemIcon>
                     <ListItemText primary="Category" />
                 </ListItemButton>
-                <ListItemButton onClick={()=>navigate('/dashboard/display_all_subcategory')}>
+                <ListItemButton onClick={()=>navigate('/dashboard/display_subcategory')}>
                     <ListItemIcon>
                         <PeopleIcon />
                     </ListItemIcon>
                     <ListItemText primary="Sub Category" />
                 </ListItemButton>
-                <ListItemButton onClick={()=>navigate('/dashboard/display_all_company')}>
+                <ListItemButton onClick={()=>navigate('/dashboard/display_company')}>
                     <ListItemIcon>
                         <ShoppingCartIcon />
                     </ListItemIcon>

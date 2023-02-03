@@ -12,19 +12,19 @@ export default function RootReducer(state = initialState, actions) {
 
             state.booking = actions.payload
 
-            return ({ vehicle: state.vehicle, booking: state.booking, userDetails: state.userDetails })
+            return ({ vehicle: state.vehicle, booking: state.booking, userDetails: state.userDetails });
 
         case 'ADD_USER':
 
             state.userDetails[actions.payload[0]] = actions.payload[1]
 
-            return ({ vehicle: state.vehicle, booking: state.booking, userDetails: state.userDetails })
+            return ({ vehicle: state.vehicle, booking: state.booking, userDetails: state.userDetails });
 
         case 'ADD_VEHICLE':
 
             state.vehicle[actions.payload[0]] = actions.payload[1]
 
-            return ({ vehicle: state.vehicle, booking: state.booking, userDetails: state.userDetails })
+            return ({ vehicle: state.vehicle, booking: state.booking, userDetails: state.userDetails });
 
         default:
             return state

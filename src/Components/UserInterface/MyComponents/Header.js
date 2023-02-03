@@ -68,7 +68,7 @@ export default function Header(props) {
                             id="basic-menu"
                             anchorEl={anchorEl}
                             open={open}
-                            //onClose={handleClose}
+                            onClose={handleClose}
                             MenuListProps={{
                                 'aria-labelledby': 'basic-button',
                             }}

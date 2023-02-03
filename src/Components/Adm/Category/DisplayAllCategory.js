@@ -1,7 +1,7 @@
 import MaterialTable from "@material-table/core";
 import { useState, useEffect } from "react";
 import { Avatar, Button, Grid, TextField } from "@material-ui/core";
-import { ServerURL, getData, postData } from "../../Services/FetchBackendData";
+import { ServerURL, getData, postData, isValidAuth } from "../../Services/FetchBackendData";
 import { useStyles } from "./DisplayAllCategoryCss";
 import * as React from 'react';
 import Dialog from '@mui/material/Dialog';
@@ -26,6 +26,8 @@ export default function DisplayAllCatergory(props) {
     var result = await getData('category/display_category')
     setCategory(result.data)
   }
+
+  
 
   useEffect(function () {
     fetchAllCategory()
@@ -84,7 +86,7 @@ export default function DisplayAllCatergory(props) {
   }
 
   const handleEditData = async () => {
-    var body = {categoryid:categoryId, categoryname:categoryName}
+    var body = { categoryid: categoryId, categoryname: categoryName }
     var response = await postData('category/edit_data', body);
     if (response.status) {
       Swal.fire({
@@ -105,7 +107,7 @@ export default function DisplayAllCatergory(props) {
   }
 
   const handleDelete = async () => {
-    var body = {categoryid:categoryId, oldicon:oldIcon}
+    var body = { categoryid: categoryId, oldicon: oldIcon }
     var response = await postData('category/delete_data', body);
     if (response.status) {
       Swal.fire({

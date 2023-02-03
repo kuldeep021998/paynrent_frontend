@@ -4,12 +4,17 @@ import { Divider, Paper, TextField, Button } from "@mui/material";
 import { ServerURL } from "../Services/FetchBackendData";
 import { useSelector } from "react-redux";
 import { useStyles } from "./VehicleDetailComponentCss";
+import { useNavigate } from "react-router-dom";
 
 export default function VehicleDetailComponent(props) {
 
+    const navigate = useNavigate();
     const classes = useStyles();
     var vehicle = useSelector((state) => state.vehicle);
     var vehicleDetails = Object.values(vehicle)[0];
+    var pickup = 400;
+    var sdeposit = 2000;
+    var total = pickup + sdeposit + vehicleDetails.rent
 
     var bookingDetails = useSelector((state) => state.booking);
     //console.log("ss", new Date(Object.values(bookingDetails.starttime)[2]))
@@ -20,13 +25,9 @@ export default function VehicleDetailComponent(props) {
 
     var et = Object.values(bookingDetails.endtime)[2];
     var etd = et.toDateString();
-    var ett = et.getHours() + ":" + et.getMinutes() + ":" + et.getSeconds()
+    var ett = et.getHours() + ":" + et.getMinutes() + ":" + et.getSeconds();
 
-    var pickup = 400;
-    var sdeposit = 2000;
-    var total = pickup + sdeposit + vehicleDetails.rent
-
-    return ( 
+    return (
         <div style={{ background: "rgb(241, 241, 241)", height: "100%", }}>
             <Header />
             <div className={classes.container}>
@@ -71,17 +72,17 @@ export default function VehicleDetailComponent(props) {
                                     <span style={{ fontSize: 18, }}>
                                         <Divider>BOOKING DETAILS</Divider>
                                         <br />
-                                        <div style={{ display: "flex" }}>
-                                            <span style={{ textAlign: "left", marginLeft: 24, width: "40%" }}>
+                                        <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center', alignItems: 'center', wordSpacing: '5px', fontSize: 15, fontFamily: 'cursive' }}>
+                                            <div style={{  width: "50%", padding: 5, fontWeight: 700, fontSize: 15 }}>
                                                 {std + " " + stt}
-                                            </span>
-                                            <Divider style={{ width: "20%" }}><b> TO </b></Divider>
-                                            <span style={{ textAlign: "right", marginRight: 24, width: "40%" }}>
+                                            </div>
+                                            <div style={{ textAlign: 'center', fontWeight: 500, fontSize: 15, padding: 5 }}>TO</div>
+                                            <div style={{ width: "50%", padding: 5, fontWeight: 700, fontSize: 15 }}>
                                                 {etd + " " + ett}
-                                            </span>
+                                            </div>
                                         </div>
                                         <br />
-                                        <div style={{ marginTop: 12, }}>
+                                        <div style={{ marginTop: 12, fontSize: 13, fontFamily: 'cursive' }}>
                                             <span>
                                                 {bookingDetails.duration}
                                             </span>
@@ -274,7 +275,7 @@ export default function VehicleDetailComponent(props) {
                                                 <TextField id="standard-basic" label="Delivery Location" variant="standard" fullWidth />
                                             </td>
                                             <td style={{ paddingTop: 36, paddingLeft: 12, paddingBottom: 8, }}>
-                                                <Button color='secondary' variant='contained'>
+                                                <Button color='secondary' variant='contained' onClick={()=>navigate("/payment_gateway")}>
                                                     Proceed
                                                 </Button>
                                             </td>
