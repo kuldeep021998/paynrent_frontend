@@ -1,7 +1,6 @@
 import { ServerURL, getData } from "../../Services/FetchBackendData"
 import { FormControlLabel } from "@material-ui/core"
 import Checkbox from "@mui/material/Checkbox";
-import { propsToClassKey } from "@mui/styles";
 import { useStyles } from "./FilterCss";
 import { useState } from "react";
 import { useEffect } from "react";
